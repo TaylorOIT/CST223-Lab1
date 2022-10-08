@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CST223-L1 Blackjack", "CST223-L1 Blackjack\CST223-L1 Blackjack.vcxproj", "{C2281698-6A6B-47F4-8CB1-5104918CEDC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2281698-6A6B-47F4-8CB1-5104918CEDC7}.Debug|x64.ActiveCfg = Debug|x64
+		{C2281698-6A6B-47F4-8CB1-5104918CEDC7}.Debug|x64.Build.0 = Debug|x64
+		{C2281698-6A6B-47F4-8CB1-5104918CEDC7}.Debug|x86.ActiveCfg = Debug|Win32
+		{C2281698-6A6B-47F4-8CB1-5104918CEDC7}.Debug|x86.Build.0 = Debug|Win32
+		{C2281698-6A6B-47F4-8CB1-5104918CEDC7}.Release|x64.ActiveCfg = Release|x64
+		{C2281698-6A6B-47F4-8CB1-5104918CEDC7}.Release|x64.Build.0 = Release|x64
+		{C2281698-6A6B-47F4-8CB1-5104918CEDC7}.Release|x86.ActiveCfg = Release|Win32
+		{C2281698-6A6B-47F4-8CB1-5104918CEDC7}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5C5AF79-F549-4E0D-8764-B634B7A3AEAE}
+	EndGlobalSection
+EndGlobal
