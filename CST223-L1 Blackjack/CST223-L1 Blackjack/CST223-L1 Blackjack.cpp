@@ -54,6 +54,7 @@ int sumHand(vector< tuple <string, string, int> >& hand)
 	}
 	return handsum;
 }
+// adds the cards in the players hand based on their value
 
 int main()
 {
