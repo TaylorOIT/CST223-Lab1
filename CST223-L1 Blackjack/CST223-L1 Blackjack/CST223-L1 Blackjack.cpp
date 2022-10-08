@@ -8,9 +8,8 @@
 using std::vector;
 using std::string;
 using std::tuple;
-// test commit
 
-int main()
+vector< tuple <string, string, int> > createDeck()
 {
 	string cardfaces[13] = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "King", "Jack", "Queen" };
 	string cardsuits[4] = { "Diamonds", "Clubs", "Hearts", "Spades" };
@@ -26,6 +25,17 @@ int main()
 			Deck.push_back(std::make_tuple(cardfaces[i], cardsuits[j], cardvalues[i]));
 		}
 	}
+
+	return Deck;
+}
+// creates a deck of cards in the form of a vector of tuples
+
+int main()
+{
+	vector< tuple <string, string, int> > Deck;
+	// includes the cardface, cardsuit, and value of the card in blackjack
+
+	Deck = createDeck();
 
 	std::cout << std::get<0>(Deck[13]) << " " << std::get<1>(Deck[13]) << " " << std::get<2>(Deck[13]);
 
