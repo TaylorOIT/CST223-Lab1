@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include <algorithm>
+#include <random>
 
 using std::vector;
 using std::string;
@@ -11,8 +13,8 @@ using std::tuple;
 
 vector< tuple <string, string, int> > createDeck()
 {
-	string cardfaces[13] = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "King", "Jack", "Queen" };
-	string cardsuits[4] = { "Diamonds", "Clubs", "Hearts", "Spades" };
+	string cardfaces[13] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "K", "J", "Q" };
+	string cardsuits[4] = { "D", "C", "H", "S" };
 	int cardvalues[13] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
 
 	vector< tuple <string, string, int> > Deck;
@@ -32,12 +34,17 @@ vector< tuple <string, string, int> > createDeck()
 
 int main()
 {
-	vector< tuple <string, string, int> > Deck;
-	// includes the cardface, cardsuit, and value of the card in blackjack
+	vector< tuple <string, string, int> > deck;
+	deck = createDeck();
 
-	Deck = createDeck();
+	std::mt19937 rand{ std::random_device{}() };
+	std::shuffle(deck.begin(), deck.end(), rand);
+	// shuffles the deck
 
-	std::cout << std::get<0>(Deck[13]) << " " << std::get<1>(Deck[13]) << " " << std::get<2>(Deck[13]);
+	for (auto d : deck) 
+	{
+		std::cout << "Card: " << std::get<0>(d) << std::get<1>(d) << " Value: " << std::get<2>(d) << "\n";
+	}
 
 }
 
