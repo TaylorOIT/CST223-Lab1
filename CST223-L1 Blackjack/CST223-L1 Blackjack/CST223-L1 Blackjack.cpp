@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
-#include <algorithm>
 #include <random>
 
 using std::vector;
@@ -36,14 +35,30 @@ vector< tuple <string, string, int> > createDeck()
 }
 // creates a deck of cards in the form of a vector of tuples that is shuffled
 
+
+vector< tuple <string, string, int> > drawCard(vector< tuple <string, string, int> > &deck, vector< tuple <string, string, int> > &hand)
+{
+	hand.push_back(deck[0]);
+	deck.erase(deck.begin());
+	return hand;
+}
+// draws a card for the player and deletes a card from the top of the deck
+
 int main()
 {
 	vector< tuple <string, string, int> > deck;
 	deck = createDeck();
 
-	for (auto d : deck) 
+	vector< tuple <string, string, int> > dealershand;
+	vector< tuple <string, string, int> > playershand;
+
+	drawCard(deck, playershand);
+	drawCard(deck, playershand);
+	drawCard(deck, playershand);
+
+	for (auto p : playershand) 
 	{
-		std::cout << "Card: " << std::get<0>(d) << std::get<1>(d) << " Value: " << std::get<2>(d) << "\n";
+		std::cout << "Card: " << std::get<0>(p) << std::get<1>(p) << " Value: " << std::get<2>(p) << "\n";
 	}
 
 }
