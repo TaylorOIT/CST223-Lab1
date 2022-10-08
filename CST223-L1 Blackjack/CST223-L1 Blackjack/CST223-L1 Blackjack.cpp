@@ -17,29 +17,29 @@ vector< tuple <string, string, int> > createDeck()
 	string cardsuits[4] = { "D", "C", "H", "S" };
 	int cardvalues[13] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
 
-	vector< tuple <string, string, int> > Deck;
+	vector< tuple <string, string, int> > deck;
 	// includes the cardface, cardsuit, and value of the card in blackjack
 
 	for (int j = 0; j < 4; j++)
 	{
 		for (int i = 0; i < 13; i++)
 		{
-			Deck.push_back(std::make_tuple(cardfaces[i], cardsuits[j], cardvalues[i]));
+			deck.push_back(std::make_tuple(cardfaces[i], cardsuits[j], cardvalues[i]));
 		}
 	}
 
-	return Deck;
+	std::mt19937 rand{ std::random_device{}() };
+	std::shuffle(deck.begin(), deck.end(), rand);
+	// shuffles the deck
+
+	return deck;
 }
-// creates a deck of cards in the form of a vector of tuples
+// creates a deck of cards in the form of a vector of tuples that is shuffled
 
 int main()
 {
 	vector< tuple <string, string, int> > deck;
 	deck = createDeck();
-
-	std::mt19937 rand{ std::random_device{}() };
-	std::shuffle(deck.begin(), deck.end(), rand);
-	// shuffles the deck
 
 	for (auto d : deck) 
 	{
