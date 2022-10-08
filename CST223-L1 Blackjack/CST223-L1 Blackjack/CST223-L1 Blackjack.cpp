@@ -47,7 +47,12 @@ vector< tuple <string, string, int> > drawCard(vector< tuple <string, string, in
 
 int sumHand(vector< tuple <string, string, int> >& hand)
 {
-
+	int handsum{};
+	for (auto h: hand)
+	{
+		handsum += get<2>(h);
+	}
+	return handsum;
 }
 
 int main()
@@ -68,5 +73,7 @@ int main()
 	{
 		std::cout << "Card: " << get<0>(p) << get<1>(p) << " Value: " << get<2>(p) << "\n";
 	}
+
+	std::cout << "Sum: " << sumHand(playershand);
 }
 
