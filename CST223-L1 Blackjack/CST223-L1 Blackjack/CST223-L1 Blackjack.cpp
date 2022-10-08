@@ -9,12 +9,13 @@
 using std::vector;
 using std::string;
 using std::tuple;
+using std::get;
 
 vector< tuple <string, string, int> > createDeck()
 {
 	string cardfaces[13] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "K", "J", "Q" };
 	string cardsuits[4] = { "D", "C", "H", "S" };
-	int cardvalues[13] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
+	int cardvalues[13] = { 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
 
 	vector< tuple <string, string, int> > deck;
 	// includes the cardface, cardsuit, and value of the card in blackjack
@@ -44,22 +45,28 @@ vector< tuple <string, string, int> > drawCard(vector< tuple <string, string, in
 }
 // draws a card for the player and deletes a card from the top of the deck
 
+int sumHand(vector< tuple <string, string, int> >& hand)
+{
+
+}
+
 int main()
 {
-	vector< tuple <string, string, int> > deck;
+	vector< tuple <string, string, int> > deck{};
 	deck = createDeck();
 
 	vector< tuple <string, string, int> > dealershand;
 	vector< tuple <string, string, int> > playershand;
 
+	drawCard(deck, dealershand);
+	drawCard(deck, dealershand);
 	drawCard(deck, playershand);
 	drawCard(deck, playershand);
-	drawCard(deck, playershand);
+	// dealing the hands
 
 	for (auto p : playershand) 
 	{
-		std::cout << "Card: " << std::get<0>(p) << std::get<1>(p) << " Value: " << std::get<2>(p) << "\n";
+		std::cout << "Card: " << get<0>(p) << get<1>(p) << " Value: " << get<2>(p) << "\n";
 	}
-
 }
 
