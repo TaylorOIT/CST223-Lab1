@@ -37,15 +37,14 @@ vector< tuple <string, string, int> > createDeck()
 // creates a deck of cards in the form of a vector of tuples that is shuffled
 
 
-vector< tuple <string, string, int> > drawCard(vector< tuple <string, string, int> > &deck, vector< tuple <string, string, int> > &hand)
+void drawCard(vector< tuple <string, string, int> > &deck, vector< tuple <string, string, int> > &hand)
 {
 	hand.push_back(deck[0]);
 	deck.erase(deck.begin());
-	return hand;
 }
 // draws a card for the player and deletes a card from the top of the deck
 
-int sumHand(vector< tuple <string, string, int> >& hand)
+int sumHand(vector< tuple <string, string, int> > hand)
 {
 	int handsum{};
 	for (auto h: hand)
@@ -54,7 +53,7 @@ int sumHand(vector< tuple <string, string, int> >& hand)
 	}
 	return handsum;
 }
-// adds the cards in the players hand based on their value
+// returns the cards total value based on their hand
 
 int main()
 {
