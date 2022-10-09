@@ -134,13 +134,18 @@ int main()
 		showHand(dealershand, "Dealers");
 		return 0;
 	}
-
+	else if (sumHand(dealershand) == 21)
+	{
+		cout << "\nDealer has blackjack! Dealer wins!\n";
+		showHand(dealershand, "Dealers");
+		return 0;
+	}
 
 	cout << endl;
 
 	if (sumHand(dealershand) < sumHand(playershand))
 	{
-		while (sumHand(dealershand) < sumHand(playershand))
+		while (sumHand(dealershand) <= sumHand(playershand))
 		{
 			drawCard(deck, dealershand);
 			showHand(dealershand, "Dealers");
