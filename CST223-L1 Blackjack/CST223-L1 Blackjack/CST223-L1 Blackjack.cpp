@@ -57,24 +57,6 @@ int sumHand(vector< tuple <string, string, int> > hand)
 }
 // returns the cards total value based on their hand
 
-bool handBust(int total)
-{
-	if (total > 21)
-		return true;
-	else
-		return false;
-}
-// returns a bool to represent if the hand busts
-
-bool handWin(int total)
-{
-	if (total == 21)
-		return true;
-	else
-		return false;
-}
-// returns a bool to represent if the hand wins
-
 void showHand(vector< tuple <string, string, int> > hand, string playersname)
 {
 	cout << playersname << " Hand: ";
@@ -142,12 +124,14 @@ int main()
 
 	if (sumHand(playershand) > 21)
 	{
-		cout << "\nPlayer has busted! Dealer wins!";
+		cout << "\nPlayer has busted! Dealer wins!\n";
+		showHand(dealershand, "Dealers");
 		return 0;
 	}
 	else if (sumHand(playershand) == 21)
 	{
-		cout << "\nPlayer has blackjack! Player wins!";
+		cout << "\nPlayer has blackjack! Player wins!\n";
+		showHand(dealershand, "Dealers");
 		return 0;
 	}
 
@@ -174,6 +158,9 @@ int main()
 			return 0;
 		}
 	}
+	
+	showHand(dealershand, "Dealers");
+	showHand(playershand, "Players");
 
 	showResult(sumHand(playershand), sumHand(dealershand));
 
