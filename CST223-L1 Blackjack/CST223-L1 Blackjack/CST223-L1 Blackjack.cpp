@@ -10,6 +10,8 @@ using std::vector;
 using std::string;
 using std::tuple;
 using std::get;
+using std::cout;
+using std::endl;
 
 vector< tuple <string, string, int> > createDeck()
 {
@@ -55,6 +57,24 @@ int sumHand(vector< tuple <string, string, int> > hand)
 }
 // returns the cards total value based on their hand
 
+bool handBust(int total)
+{
+	if (total > 21)
+		return true;
+	else
+		return false;
+}
+// returns a bool to represent if the hand busts
+
+bool handWin(int total)
+{
+	if (total == 21)
+		return true;
+	else
+		return false;
+}
+// returns a bool to represent if the hand wins
+
 int main()
 {
 	vector< tuple <string, string, int> > deck{};
@@ -62,6 +82,7 @@ int main()
 
 	vector< tuple <string, string, int> > dealershand;
 	vector< tuple <string, string, int> > playershand;
+	char choice{};
 
 	drawCard(deck, dealershand);
 	drawCard(deck, dealershand);
@@ -69,11 +90,31 @@ int main()
 	drawCard(deck, playershand);
 	// dealing the hands
 
-	for (auto p : playershand) 
+	cout << "Welcome to Blackjack!" << endl;
+	cout << "---------------------" << endl;
+	
+	cout << "Dealers Hand: " << get<0>(dealershand[0]) << get<1>(dealershand[0]) << " ?? \n";
+	cout << "Hand Total: " << get<2>(dealershand[0]) << endl << endl;
+
+	cout << "Players Hand: " << get<0>(playershand[0]) << get<1>(playershand[0]);
+	cout << " " << get<0>(playershand[1]) << get<1>(playershand[1]) << endl;
+	cout << "Hand Total: " << sumHand(playershand) << endl;
+
+	cout << "Would you like to hit/stand (h/s)?: ";
+	std::cin >> choice;
+
+	if (choice == 'h')
 	{
-		std::cout << "Card: " << get<0>(p) << get<1>(p) << " Value: " << get<2>(p) << "\n";
+		drawCard(deck, playershand);
 	}
 
-	std::cout << "Sum: " << sumHand(playershand);
+	
+
+	//for (auto p : playershand) 
+	//{
+	//	std::cout << "Card: " << get<0>(p) << get<1>(p) << " Value: " << get<2>(p) << "\n";
+	//}
+
+	//std::cout << "Sum: " << sumHand(playershand);
 }
 
