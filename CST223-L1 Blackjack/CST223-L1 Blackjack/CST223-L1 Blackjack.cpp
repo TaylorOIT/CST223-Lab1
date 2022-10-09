@@ -75,6 +75,20 @@ bool handWin(int total)
 }
 // returns a bool to represent if the hand wins
 
+void showHand(vector< tuple <string, string, int> > hand)
+{
+	cout << "Players Hand: ";
+
+	for (auto h : hand) 
+	{
+		cout << get<0>(h) << get<1>(h) << " ";
+	}
+	
+	cout << endl;
+	cout << "Hand Total: " << sumHand(hand) << endl;
+}
+// shows the players hand
+
 int main()
 {
 	vector< tuple <string, string, int> > deck{};
@@ -83,6 +97,8 @@ int main()
 	vector< tuple <string, string, int> > dealershand;
 	vector< tuple <string, string, int> > playershand;
 	char choice{};
+	bool bust{};
+	bool win{};
 
 	drawCard(deck, dealershand);
 	drawCard(deck, dealershand);
@@ -100,12 +116,20 @@ int main()
 	cout << " " << get<0>(playershand[1]) << get<1>(playershand[1]) << endl;
 	cout << "Hand Total: " << sumHand(playershand) << endl;
 
-	cout << "Would you like to hit/stand (h/s)?: ";
-	std::cin >> choice;
-
-	if (choice == 'h')
+	while (choice != 's' && bust != true && win != true) 
 	{
-		drawCard(deck, playershand);
+		cout << "Would you like to hit/stand (h/s)?: ";
+		std::cin >> choice;
+
+		if (choice == 'h')
+		{
+			drawCard(deck, playershand);
+
+			showHand(playershand);
+
+			bust = handBust(sumHand(playershand));
+			win = handWin(sumHand(playershand));
+		}
 	}
 
 	
