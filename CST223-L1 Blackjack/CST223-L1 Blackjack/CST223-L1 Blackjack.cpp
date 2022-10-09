@@ -148,7 +148,9 @@ int main()
 		while (sumHand(dealershand) <= sumHand(playershand))
 		{
 			drawCard(deck, dealershand);
+			cout << "Dealer has hit: " << endl;
 			showHand(dealershand, "Dealers");
+			cout << endl;
 		}
 		// dealer will hit until they get a better hand than the player or hit blackjack
 
