@@ -75,9 +75,9 @@ bool handWin(int total)
 }
 // returns a bool to represent if the hand wins
 
-void showHand(vector< tuple <string, string, int> > hand)
+void showHand(vector< tuple <string, string, int> > hand, string playersname)
 {
-	cout << "Players Hand: ";
+	cout << playersname << " Hand: ";
 
 	for (auto h : hand) 
 	{
@@ -89,6 +89,20 @@ void showHand(vector< tuple <string, string, int> > hand)
 }
 // shows the players hand
 
+void showResult(int playerstotal, int dealerstotal)
+{
+	if (playerstotal > dealerstotal)
+	{
+		cout << "\nPlayer has a closer hand to 21. Player wins!";
+	}
+	else if (playerstotal < dealerstotal)
+	{
+		cout << "\nDealer has a closer hand to 21. Dealer wins!";
+	}
+	else
+		cout << "\nThere was a tie! Nobody wins :{";
+}
+
 int main()
 {
 	vector< tuple <string, string, int> > deck{};
@@ -97,8 +111,6 @@ int main()
 	vector< tuple <string, string, int> > dealershand;
 	vector< tuple <string, string, int> > playershand;
 	char choice{};
-	bool bust{};
-	bool win{};
 
 	drawCard(deck, dealershand);
 	drawCard(deck, dealershand);
@@ -108,15 +120,13 @@ int main()
 
 	cout << "Welcome to Blackjack!" << endl;
 	cout << "---------------------" << endl;
-	
+
 	cout << "Dealers Hand: " << get<0>(dealershand[0]) << get<1>(dealershand[0]) << " ?? \n";
 	cout << "Hand Total: " << get<2>(dealershand[0]) << endl << endl;
 
-	cout << "Players Hand: " << get<0>(playershand[0]) << get<1>(playershand[0]);
-	cout << " " << get<0>(playershand[1]) << get<1>(playershand[1]) << endl;
-	cout << "Hand Total: " << sumHand(playershand) << endl;
+	showHand(playershand, "Players");
 
-	while (choice != 's' && bust != true && win != true) 
+	while (choice != 's' && sumHand(playershand) < 21)
 	{
 		cout << "Would you like to hit/stand (h/s)?: ";
 		std::cin >> choice;
@@ -125,20 +135,47 @@ int main()
 		{
 			drawCard(deck, playershand);
 
-			showHand(playershand);
+			showHand(playershand, "Players");
+		}
+		else continue;
+	}
 
-			bust = handBust(sumHand(playershand));
-			win = handWin(sumHand(playershand));
+	if (sumHand(playershand) > 21)
+	{
+		cout << "\nPlayer has busted! Dealer wins!";
+		return 0;
+	}
+	else if (sumHand(playershand) == 21)
+	{
+		cout << "\nPlayer has blackjack! Player wins!";
+		return 0;
+	}
+
+
+	cout << endl;
+
+	if (sumHand(dealershand) < sumHand(playershand))
+	{
+		while (sumHand(dealershand) < sumHand(playershand))
+		{
+			drawCard(deck, dealershand);
+			showHand(dealershand, "Dealers");
+		}
+		// dealer will hit until they get a better hand than the player or hit blackjack
+
+		if (sumHand(dealershand) > 21)
+		{
+			cout << "\nDealer has busted! Player wins!";
+			return 0;
+		}
+		else if (sumHand(dealershand) == 21)
+		{
+			cout << "\nDealer has blackjack! Dealer wins!";
+			return 0;
 		}
 	}
 
-	
+	showResult(sumHand(playershand), sumHand(dealershand));
 
-	//for (auto p : playershand) 
-	//{
-	//	std::cout << "Card: " << get<0>(p) << get<1>(p) << " Value: " << get<2>(p) << "\n";
-	//}
-
-	//std::cout << "Sum: " << sumHand(playershand);
 }
 
