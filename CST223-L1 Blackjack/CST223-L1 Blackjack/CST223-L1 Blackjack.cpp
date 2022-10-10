@@ -84,6 +84,7 @@ void showResult(int playerstotal, int dealerstotal)
 	else
 		cout << "\nThere was a tie! Nobody wins :{";
 }
+// shows the results of the game if nobody has hit blackjack or busted
 
 int main()
 {
@@ -164,7 +165,7 @@ int main()
 			cout << "\nDealer has busted! Player wins!";
 			winner = true;
 		}
-		else if (sumHand(dealershand) == 21)
+		else if (sumHand(dealershand) == 21 && winner != true)
 		{
 			cout << "\nDealer has blackjack! Dealer wins!";
 			winner = true;
@@ -181,6 +182,7 @@ int main()
 		cout << endl << "Would you like to play again? (y/n): ";
 		std::cin >> choice;
 		system("cls");
+		// clearing the cmd window for the next game
 	} while (choice != 'n');
 
 }
