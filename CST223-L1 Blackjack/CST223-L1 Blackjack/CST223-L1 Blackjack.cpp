@@ -87,89 +87,101 @@ void showResult(int playerstotal, int dealerstotal)
 
 int main()
 {
-	vector< tuple <string, string, int> > deck{};
-	deck = createDeck();
-
-	vector< tuple <string, string, int> > dealershand;
-	vector< tuple <string, string, int> > playershand;
 	char choice{};
-
-	drawCard(deck, dealershand);
-	drawCard(deck, dealershand);
-	drawCard(deck, playershand);
-	drawCard(deck, playershand);
-	// dealing the hands
-
-	cout << "Welcome to Blackjack!" << endl;
-	cout << "---------------------" << endl;
-
-	cout << "Dealers Hand: " << get<0>(dealershand[0]) << get<1>(dealershand[0]) << " ?? \n";
-	cout << "Hand Total: " << get<2>(dealershand[0]) << endl << endl;
-
-	showHand(playershand, "Players");
-
-	while (choice != 's' && sumHand(playershand) < 21)
+	do 
 	{
-		cout << "Would you like to hit/stand (h/s)?: ";
-		std::cin >> choice;
+		bool winner{};
+		vector< tuple <string, string, int> > deck{};
+		deck = createDeck();
 
-		if (choice == 'h')
+		vector< tuple <string, string, int> > dealershand;
+		vector< tuple <string, string, int> > playershand;
+		char hitorstand{};
+
+		drawCard(deck, dealershand);
+		drawCard(deck, dealershand);
+		drawCard(deck, playershand);
+		drawCard(deck, playershand);
+		// dealing the hands
+
+		cout << "Welcome to Blackjack!" << endl;
+		cout << "---------------------" << endl;
+
+		cout << "Dealers Hand: " << get<0>(dealershand[0]) << get<1>(dealershand[0]) << " ?? \n";
+		cout << "Hand Total: " << get<2>(dealershand[0]) << endl << endl;
+
+		showHand(playershand, "Players");
+
+		while (hitorstand != 's' && sumHand(playershand) < 21)
 		{
-			drawCard(deck, playershand);
+			cout << "Would you like to hit/stand (h/s)?: ";
+			std::cin >> hitorstand;
 
-			showHand(playershand, "Players");
+			if (hitorstand == 'h')
+			{
+				drawCard(deck, playershand);
+
+				showHand(playershand, "Players");
+			}
+			else continue;
 		}
-		else continue;
-	}
 
-	if (sumHand(playershand) > 21)
-	{
-		cout << "\nPlayer has busted! Dealer wins!\n";
-		showHand(dealershand, "Dealers");
-		return 0;
-	}
-	else if (sumHand(playershand) == 21)
-	{
-		cout << "\nPlayer has blackjack! Player wins!\n";
-		showHand(dealershand, "Dealers");
-		return 0;
-	}
-	else if (sumHand(dealershand) == 21)
-	{
-		cout << "\nDealer has blackjack! Dealer wins!\n";
-		showHand(dealershand, "Dealers");
-		return 0;
-	}
-
-	cout << endl;
-
-	if (sumHand(dealershand) < sumHand(playershand))
-	{
-		while (sumHand(dealershand) <= sumHand(playershand))
+		if (sumHand(playershand) > 21)
 		{
-			drawCard(deck, dealershand);
-			cout << "Dealer has hit: " << endl;
+			cout << "\nPlayer has busted! Dealer wins!\n";
 			showHand(dealershand, "Dealers");
-			cout << endl;
+			winner = true;
 		}
-		// dealer will hit until they get a better hand than the player or hit blackjack
+		else if (sumHand(playershand) == 21)
+		{
+			cout << "\nPlayer has blackjack! Player wins!\n";
+			showHand(dealershand, "Dealers");
+			winner = true;
+		}
+		else if (sumHand(dealershand) == 21)
+		{
+			cout << "\nDealer has blackjack! Dealer wins!\n";
+			showHand(dealershand, "Dealers");
+			winner = true;
+		}
 
+		cout << endl;
+
+		if ((sumHand(dealershand) < sumHand(playershand)) && winner != true)
+		{
+			while (sumHand(dealershand) <= sumHand(playershand))
+			{
+				drawCard(deck, dealershand);
+				cout << "Dealer has hit: " << endl;
+				showHand(dealershand, "Dealers");
+				cout << endl;
+			}
+			// dealer will hit until they get a better hand than the player or hit blackjack
+		}
+		
 		if (sumHand(dealershand) > 21)
 		{
 			cout << "\nDealer has busted! Player wins!";
-			return 0;
+			winner = true;
 		}
 		else if (sumHand(dealershand) == 21)
 		{
 			cout << "\nDealer has blackjack! Dealer wins!";
-			return 0;
+			winner = true;
 		}
-	}
-	
-	showHand(dealershand, "Dealers");
-	showHand(playershand, "Players");
 
-	showResult(sumHand(playershand), sumHand(dealershand));
+		if (winner != true)
+		{
+			showHand(dealershand, "Dealers");
+			showHand(playershand, "Players");
+
+			showResult(sumHand(playershand), sumHand(dealershand));
+		}
+
+		cout << endl << "Would you like to play again? (y/n): ";
+		std::cin >> choice;
+		system("cls");
+	} while (choice != 'n');
 
 }
 
