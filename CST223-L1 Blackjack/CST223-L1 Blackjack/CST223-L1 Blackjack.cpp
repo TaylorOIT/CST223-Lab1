@@ -86,6 +86,23 @@ void showResult(int playerstotal, int dealerstotal)
 }
 // shows the results of the game if nobody has hit blackjack or busted
 
+
+void aceCheck(vector< tuple <string, string, int> > &hand) 
+{	
+	if (sumHand(hand) > 21)
+	{
+		for (int i = 0; i < hand.size(); i++)
+		{
+			if (get<0>(hand.at(i)) == "A") 
+			{
+				hand.push_back(std::make_tuple(get<0>(hand.at(i)), get<1>(hand.at(i)), 1));
+				hand.erase(hand.begin()+i);
+			}
+		}
+	}
+}
+// if the players hand is a bust and they have an ace in their hand, change the ace value from 11 to 1
+
 int main()
 {
 	char choice{};
@@ -121,7 +138,7 @@ int main()
 			if (hitorstand == 'h')
 			{
 				drawCard(deck, playershand);
-
+				aceCheck(playershand);
 				showHand(playershand, "Players");
 			}
 			else continue;
@@ -150,9 +167,10 @@ int main()
 
 		if ((sumHand(dealershand) < sumHand(playershand)) && winner != true)
 		{
-			while (sumHand(dealershand) <= sumHand(playershand))
+			while (sumHand(dealershand) < sumHand(playershand))
 			{
 				drawCard(deck, dealershand);
+				aceCheck(dealershand);
 				cout << "Dealer has hit: " << endl;
 				showHand(dealershand, "Dealers");
 				cout << endl;
